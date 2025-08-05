@@ -2,7 +2,7 @@
 import { Card } from "@/components/ui/card";
 import { UserCard } from "@/components/UserCard";
 
-import { Users } from "@/lib/utils";
+import { cn, Users } from "@/lib/utils";
 
 import { useChat } from "@ai-sdk/react";
 import { useState } from "react";
@@ -12,25 +12,32 @@ export default function Home() {
   const { messages, sendMessage } = useChat();
 
   return (
-    <main className=" h-[calc(100vh-4rem)] grid justify-items-center bg-amber-500 ">
-      {messages.map((message, index) => (
-        <div key={message.id} className="whitespace-pre-wrap">
-          {message.role === "user" ? "User: " : "AI: "}
-          {message.parts.map((part, i) => {
-            switch (part.type) {
-              case "text":
-                return <span key={i}>{part.text}</span>;
-              case "source-url":
-                return (
-                  <a key={i} href={part.url}>
-                    {part.url}
-                  </a>
-                );
-            }
-          })}
-        </div>
-      ))}
-
+    <main className=" h-[calc(100vh-4rem)] grid justify-items-center dark:bg-amber-500 w-full">
+      <div className="scroll-auto pb-15  w-full">
+        {messages.map((message, index) => (
+          <div
+            key={message.id}
+            className={cn(
+              "whitespace-pre-wrap p-2 m-2 rounded-lg",
+              message.role === "user" ? "bg-zinc-300" : "bg-slate-300"
+            )}
+          >
+            {message.role === "user" ? "User Message: " : "Answer: "}
+            {message.parts.map((part, i) => {
+              switch (part.type) {
+                case "text":
+                  return <span key={i}>{part.text}</span>;
+                case "source-url":
+                  return (
+                    <a key={i} href={part.url}>
+                      {part.url}
+                    </a>
+                  );
+              }
+            })}
+          </div>
+        ))}
+      </div>
       <form
         className="fixed bottom-0 w-full max-w-md p-2 mb-8 w-full rounded shadow-xl"
         onSubmit={(e) => {
