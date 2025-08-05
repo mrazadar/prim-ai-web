@@ -19,7 +19,9 @@ export default function Home() {
             key={message.id}
             className={cn(
               "whitespace-pre-wrap p-2 m-2 rounded-lg",
-              message.role === "user" ? "bg-zinc-300" : "bg-slate-300"
+              message.role === "user"
+                ? "bg-zinc-300 dark:bg-amber-300 text-gray-900"
+                : "bg-slate-300 dark:bg-amber-400 text-gray-900"
             )}
           >
             {message.role === "user" ? "User Message: " : "Answer: "}
