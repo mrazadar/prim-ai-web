@@ -12,7 +12,7 @@ export default function Home() {
   const { messages, sendMessage } = useChat();
 
   return (
-    <main className="h-screen pb-3 w-full grid gap-4  ">
+    <main className=" h-[calc(100vh-4rem)] grid justify-items-center bg-amber-500 ">
       {messages.map((message, index) => (
         <div key={message.id} className="whitespace-pre-wrap">
           {message.role === "user" ? "User: " : "AI: "}
@@ -32,7 +32,7 @@ export default function Home() {
       ))}
 
       <form
-        className="align-middle justify-center"
+        className="fixed bottom-0 w-full max-w-md p-2 mb-8 w-full rounded shadow-xl"
         onSubmit={(e) => {
           e.preventDefault();
           sendMessage({ text: input });
@@ -40,7 +40,7 @@ export default function Home() {
         }}
       >
         <input
-          className="fixed dark:bg-zinc-900 bottom-0 w-full max-w-md p-2 mb-8 border border-zinc-300 dark:border-zinc-800 rounded shadow-xl"
+          className="fixed dark:bg-amber-700 bottom-0 w-full max-w-md p-4 mb-8 border border-zinc-300 dark:border-zinc-800 rounded shadow-xl text-accent-foreground"
           value={input}
           placeholder="Say something..."
           onChange={(e) => setInput(e.currentTarget.value)}
